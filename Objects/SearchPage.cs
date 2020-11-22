@@ -43,7 +43,7 @@ namespace ExampleSeleniumTests
         {
             base.EnsurePageLoaded();
             string textInSearch = Search.GetAttribute("value");
-            string selectedCategoryInSearch = new SelectElement(SearchCategory).SelectedOption.Text;
+            string selectedCategoryInSearch = new SelectElement(SearchCategoryList).SelectedOption.Text;
 
             if (textInSearch != SearchedItem || selectedCategoryInSearch != Category)
             {

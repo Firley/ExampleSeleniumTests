@@ -9,13 +9,17 @@ namespace ExampleSeleniumTests.Tests
     [TestFixture]
     class TestSearch : Test
     {
-       
+
         [Test]
         public void TestSearchByCategory()
         {
             string category = "Elektronika";
             string item = "Komputer";
-           Assert.IsTrue(homePage.FindItemInCategory(item, category).EnduseSearchResultsAreLoaded());
+            Assert.IsTrue(homePage
+                .TypeInSearch(item)
+                .SelectCategory(category)
+                .ClickSubmitSearch(item, category)
+                .EnduseSearchResultsAreLoaded());
         }
 
         [Test]
@@ -23,7 +27,11 @@ namespace ExampleSeleniumTests.Tests
         {
             string category = "Wszystkie kategorie";
             string item = "Komputer";
-            Assert.IsTrue(homePage.FindItemInCategory(item, category).EnduseSearchResultsAreLoaded());
+            Assert.IsTrue(homePage
+                .TypeInSearch(item)
+                .SelectCategory(category)
+                .ClickSubmitSearch(item, category)
+                .EnduseSearchResultsAreLoaded());
         }
 
 
@@ -32,7 +40,11 @@ namespace ExampleSeleniumTests.Tests
         {
             string category = "Wszystkie kategorie";
             string item = "ThisItemNotExistsTest";
-            Assert.IsTrue(homePage.FindItemInCategory(item, category).EnsureEmptyStateIsDisplayed());
+            Assert.IsTrue(homePage
+                .TypeInSearch(item)
+                .SelectCategory(category)
+                .ClickSubmitSearch(item, category)
+                .EnsureEmptyStateIsDisplayed());
         }
 
 
@@ -41,8 +53,25 @@ namespace ExampleSeleniumTests.Tests
         {
             string category = "Elektronika";
             string item = "ThisItemNotExistsTest";
-            Assert.IsTrue(homePage.FindItemInCategory(item, category).EnsureEmptyStateIsDisplayed());
+            Assert.IsTrue(homePage
+                .TypeInSearch(item)
+                .SelectCategory(category)
+                .ClickSubmitSearch(item, category)
+                .EnsureEmptyStateIsDisplayed());
         }
+
+
+        [Test]
+        public void TestSearchUsingSuggestion()
+        {
+            string category = "Elektronika";
+            string item = "Komputer";
+            Assert.IsTrue(homePage
+                .TypeInSearch(item)
+                .EnduseSearchSuggestionsAreDisplayed()
+                FindItemInCategory(item, category).EnduseSearchResultsAreLoaded());
+        }
+
 
     }
 }
